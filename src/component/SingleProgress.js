@@ -4,81 +4,75 @@ class SingleProgress extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      progressSignStyle: {
-        borderRadius: '0',
-        border: '2px solid black',
-        width: '100px',
-        height: '100px',
+      progressSignStyle: {},
+      progressNameStyle: {},
+      borderStyle: {},
+      stepStyle: {
         display: 'grid',
-        alignItems: 'center'
+        gridTemplateRows: '1fr',
+        gridTemplateColumns: 'repeat(3, auto)',
+        alignItems: 'center',
+        gridGap: '5px'
       }
     }
   }
 
   componentDidMount() {
+    if (this.props.align === 'right') {
+      document.body.style.direction = 'rtl'
+    }
     this.setState((state, props) => {
+      const userSetting = props.step
       return {
         progressSignStyle: {
-          borderRadius: props.x.borderRadius ? props.x.borderRadius : '50%',
-          border: '2px solid black',
-          width: '50px',
-          height: '50px',
+          borderRadius: userSetting.borderRadiusOfSign
+            ? userSetting.borderRadiusOfSign
+            : '50%',
+          border: userSetting.borderOfSign
+            ? userSetting.borderOfSign
+            : '2px solid black',
+          width: userSetting.widthOfSign ? userSetting.widthOfSign : '50px',
+          height: userSetting.heightOfSign ? userSetting.heightOfSign : '50px',
           display: 'grid',
           alignItems: 'center'
+        },
+        progressNameStyle: {
+          color: userSetting.progressNameColor
+            ? userSetting.progressNameColor
+            : '',
+          fontSize: userSetting.progressNameFontSize
+            ? userSetting.progressNameFontSize
+            : ''
+        },
+        borderStyle: {
+          borderTop: userSetting.borderTopOfBorder
+            ? userSetting.borderTopOfBorder
+            : 'thick solid black',
+          width: userSetting.widthOfBorder
+            ? userSetting.widthOfBorder
+            : '100px',
+          height: '0'
         }
       }
     })
-    console.log(this.props)
   }
 
   render() {
-    const styles = { sign: this.state.progressSignStyle }
-    console.log(this.props.align)
-    if (this.props.align === 'left') {
-      return (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateRows: '1fr',
-            gridTemplateColumns: 'repeat(3, auto)',
-            alignItems: 'center',
-            gridGap: '5px'
-          }}
-        >
-          <div style={styles.sign}>{this.props.x.sign}</div>
-          <div>{this.props.x.progressName}</div>
-          <div
-            style={{
-              borderTop: 'thick solid black',
-              width: '100px',
-              height: '0'
-            }}
-          />
-        </div>
-      )
-    } else {
-      return (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateRows: '1fr',
-            gridTemplateColumns: 'repeat(3, auto)',
-            alignItems: 'center',
-            gridGap: '5px'
-          }}
-        >
-          <div
-            style={{
-              borderTop: 'thick solid black',
-              width: '100px',
-              height: '0'
-            }}
-          />
-          <div>{this.props.x.progressName}</div>
-          <div style={styles.sign}>{this.props.x.sign}</div>
-        </div>
-      )
+    const styles = {
+      sign: this.state.progressSignStyle,
+      progress: this.state.progressNameStyle,
+      border: this.state.borderStyle,
+      step: this.state.stepStyle
     }
+    return (
+      <div style={styles.step}>
+        <div style={styles.sign}>{this.props.step.sign}</div>
+        <div style={styles.progress}>{this.props.step.progressName}</div>
+        {this.props.index !== this.props.countOfSteps - 1 && (
+          <div style={styles.border} />
+        )}
+      </div>
+    )
   }
 }
 export default SingleProgress

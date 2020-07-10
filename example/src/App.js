@@ -7,10 +7,11 @@ const App = () => {
   return (
     <ExampleComponent
       levelOfProgresses={[
-        { progressName: 'aaa', sign: 1, borderRadius: '20%' },
-        { progressName: 'bbb', sign: 2 }
+        { progressName: 'level one', sign: 1, borderRadiusOfSign: '20%' },
+        { progressName: 'level two', sign: 2 },
+        { progressName: 'level two', sign: 3 },
       ]}
-      progressBarAlign='right'
+      // progressBarAlign='right'
     />
   )
 }
