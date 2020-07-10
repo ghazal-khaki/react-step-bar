@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save react-progress-bar
+npm install --save react-step-bar
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install --save react-progress-bar
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-progress-bar'
-import 'react-progress-bar/dist/index.css'
+import MyComponent from 'react-step-bar'
+import 'react-step-bar/dist/index.css'
 
 class Example extends Component {
   render() {
