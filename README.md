@@ -1,4 +1,4 @@
-# react-progress-bar
+# react-step-bar
 
 > Made with create-react-library
 
